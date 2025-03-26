@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -18,3 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/users', [UserController::class, 'index'])->name('user');
+// Route::get('/users', function() {
+//     return 'Test Route';
+// });
