@@ -11,14 +11,9 @@
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
 /* Fonts */
-:root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Raleway",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
-}
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #040677; /* Color for headings, subheadings and title throughout the website */
@@ -45,7 +40,7 @@
 }
 
 .dark-background {
-  --background-color: #08005e;
+  --background-color: #7E0E71;
   --default-color: #ffffff;
   --heading-color: #ffffff;
   --surface-color: #0c0091;
@@ -63,7 +58,7 @@
 body {
   color: var(--default-color);
   background-color: var(--background-color);
-  font-family: var(--default-font);
+  font-family: 'Agbalumo', cursive;
 }
 
 a {
@@ -83,8 +78,8 @@ h3,
 h4,
 h5,
 h6 {
+    font-family: 'Agbalumo', cursive;
   color: var(--heading-color);
-  font-family: var(--heading-font);
 }
 
 /* PHP Email Form Messages
@@ -176,7 +171,7 @@ h6 {
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
-  --background-color: #10058c;
+  --background-color: #711C67;
 }
 
 /*--------------------------------------------------------------
@@ -214,7 +209,7 @@ h6 {
     color: color-mix(in srgb, var(--nav-color), transparent 20%);
     font-size: 15px;
     padding: 0 2px;
-    font-family: var(--nav-font);
+    font-family:'Agbalumo', cursive;
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -350,7 +345,7 @@ h6 {
   .navmenu a:focus {
     color: var(--nav-dropdown-color);
     padding: 10px 20px;
-    font-family: var(--nav-font);
+    font-family: 'Agbalumo', cursive;
     font-size: 17px;
     font-weight: 500;
     display: flex;
@@ -469,13 +464,13 @@ h6 {
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 1px;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   color: var(--heading-color);
 }
 
 .footer .footer-about p {
   font-size: 14px;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
 }
 
 .footer .social-links a {
@@ -778,7 +773,7 @@ section,
   font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
 }
 
 /*--------------------------------------------------------------
@@ -839,7 +834,7 @@ section,
 .hero .btn-get-started {
   color: var(--contrast-color);
   background: var(--accent-color);
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
@@ -1002,7 +997,7 @@ section,
 .about .content .read-more {
   background: var(--accent-color);
   color: var(--contrast-color);
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
@@ -1162,7 +1157,7 @@ section,
 .stats .stats-item p {
   padding: 0;
   margin: 0;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   font-size: 16px;
 }
 
@@ -1441,7 +1436,7 @@ section,
   color: var(--accent-color);
   font-size: 48px;
   font-weight: 700;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   margin-bottom: 0;
 }
 
@@ -1468,7 +1463,7 @@ section,
   border-radius: 5px;
   font-size: 16px;
   font-weight: 500;
-  font-family: var(--heading-font);
+  font-family: 'Agbalumo',cursive;
   transition: 0.3s;
   margin-top: 20px;
   margin-bottom: 6px;
