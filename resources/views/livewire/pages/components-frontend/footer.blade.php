@@ -8,7 +8,7 @@
                     <dotlottie-player src="https://lottie.host/336192b9-d622-4b80-a4b9-36d1edf9985a/LpDMtJFCjI.lottie"
                         background="transparent" speed="1" style="width: 50px; height: 50px" loop
                         autoplay></dotlottie-player>
-                    
+
                     <span class="sitename text-2xl font-bold ml-2 text-white">LattieCook</span>
                 </a>
             </div>
@@ -34,7 +34,7 @@
     <!-- Copyright -->
     <div class="text-center mt-8 pt-8 border-t border-gray-700">
         <p class="text-sm text-white">
-            © <span>Copyright</span> <strong class="px-1 sitename">BumiKita</strong> <span>All Rights Reserved</span>
+            © <span>Copyright</span> <strong class="px-1 sitename">LattieCook</strong> <span>All Rights Reserved</span>
         </p>
     </div>
 </footer>
