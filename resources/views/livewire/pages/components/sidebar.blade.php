@@ -27,7 +27,7 @@
         </div>
       </li> --}}
       <li class="nav-item">
-        <a class="nav-link"  href="{{ route ('user') }}" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link"  href="{{ route ('users.index') }}" aria-expanded="false" aria-controls="icons">
           <span class="menu-title">User</span>
           <i class="mdi mdi-contacts menu-icon"></i>
         </a>

@@ -4,23 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use DataTables;
-use Yajra\DataTables\DataTables as DataTablesDataTables;
-use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    // show datatables
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::query();
+            $data = User::select('*');
 
-            return DataTablesDataTables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-warning btn-sm" data-id="' . $row->id . '">Edit</a>';
+                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -30,53 +27,55 @@ class UserController extends Controller
         return view('livewire.pages.admin.users.index');
     }
 
-    // Menyimpan data baru
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:users',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required',
+        ]);
 
-    User::create($request->all());
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt('password'),
+        ]);
 
-    return redirect()->route('user')->with('success', 'User berhasil disimpan!');
-}
-
-
-
-
+        return response()->json([
+            'success' => true,
+            'message' => 'User berhasil ditambahkan!',
+            'redirect' => route('users.index')
+        ]);
+    }
 
     public function create()
     {
         return view('livewire.pages.admin.users.create');
-
     }
 
-    // Mengambil data untuk edit
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return response()->json($user);
     }
 
-    // Update data
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        User::find($id)->update($request->all());
+        $user = User::findOrFail($id);
+        $user->update($request->all());
 
         return response()->json(['success' => 'User updated successfully.']);
     }
 
-    // Hapus data
     public function destroy($id)
     {
-        User::find($id)->delete();
+        User::findOrFail($id)->delete();
         return response()->json(['success' => 'User deleted successfully.']);
     }
 }
