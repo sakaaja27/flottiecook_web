@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route ('dashboard') }}">
           <span class="menu-title">Dashboard</span>
           <i class="mdi mdi-home menu-icon"></i>
         </a>
@@ -27,7 +27,7 @@
         </div>
       </li> --}}
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link"  href="{{ route ('user') }}" aria-expanded="false" aria-controls="icons">
           <span class="menu-title">User</span>
           <i class="mdi mdi-contacts menu-icon"></i>
         </a>

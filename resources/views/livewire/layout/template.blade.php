@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Default Title')</title>
 
-    <!-- Favicon -->
+   
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     <!-- CSS -->
@@ -31,10 +31,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.js"></script>
 
-    <!-- Initialization Script -->
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Initialize components here
+
         @stack('scripts')
       });
     </script>
