@@ -11,7 +11,7 @@
             <ul id="menu-list">
                 <li><a href="#hero" class="active">Home</a></li>
                 <li><a href="#recipes">Recipes</a></li>
-                <li><a href="#Aibot">AiBot</a></li>
+                <li><a href="#aibot">AiBot</a></li>
                 <li><a href="#publish">Publish Recipes</a></li>
                 <li><a href="./login">Login</a></li>
 
