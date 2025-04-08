@@ -69,6 +69,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $user->update($request->all());
+        // $user->update($request->only('name', 'email'));
 
         return response()->json(['success' => 'User updated successfully.']);
     }
