@@ -27,7 +27,7 @@
         </div>
       </li> --}}
       <li class="nav-item">
-        <a class="nav-link"  href="{{ route ('users.index') }}" aria-expanded="false" aria-controls="icons">
+        <a class="nav-link" href="{{ route ('users.index') }}" aria-expanded="false" aria-controls="icons">
           <span class="menu-title">User</span>
           <i class="mdi mdi-contacts menu-icon"></i>
         </a>
@@ -66,14 +66,14 @@
         </div>
       </li> --}}
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-          <span class="menu-title">Tables</span>
+        <a class="nav-link" href="{{ route ('recipt.index') }}" aria-expanded="false" aria-controls="icons">
+          <span class="menu-title">Recipe</span>
           <i class="mdi mdi-food menu-icon"></i>
         </a>
-        {{-- <div class="collapse" id="tables">
+        {{-- <div class="collapse" id="icons">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a>
+              <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a>
             </li>
           </ul>
         </div> --}}

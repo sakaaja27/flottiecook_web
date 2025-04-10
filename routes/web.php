@@ -4,7 +4,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReciptController;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(LandingPageController::class)->group(function () {
@@ -24,7 +26,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
     Route::POST('/users-reset/{id}', [UserController::class, 'reset'])->name('user.reset');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/recipt', [ReciptController::class, 'index'])->name('recipt.index');
+    Route::get('/recipt/create', [ReciptController::class, 'create'])->name('recipt.create');
+    Route::post('/recipt/store', [ReciptController::class, 'store'])->name('recipt.store');
+    // Route::post('/recipt/store', [ReciptController::class, 'store'])->middleware('auth');
+    Route::put('/recipt/{id}', [ReciptController::class, 'update'])->name('recipt.update');
+    Route::get('/recipt/{id}/edit', [ReciptController::class, 'edit'])->name('recipt.edit');
+    Route::delete('recipt/{id}', [ReciptController::class, 'destroy'])->name('user.delete');
 });
+
+
+
 
 require __DIR__ . '/auth.php';
 

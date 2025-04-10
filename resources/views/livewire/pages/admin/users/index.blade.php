@@ -14,15 +14,15 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('users.create') }}" class="btn btn-success mb-3">+ Tambah User</a>
+                    <a href="{{ route('users.create') }}" class="btn btn-success mb-3">+ Add User</a>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="users-table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Aksi</th>
+                                    <th>Number</th>
+                                    <th>Name</th>
+                                    <th>E-mail</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
