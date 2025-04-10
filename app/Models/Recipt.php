@@ -10,13 +10,19 @@ class Recipt extends Model
 {
     use HasFactory, Notifiable;
 
-    public $timestamps = false;  // Nonaktifkan timestamps otomatis
-    protected $table = 'recipt';  // Nama tabel
+    public $timestamps = false;
+    protected $table = 'recipt';
 
     protected $fillable = [
-        'user_id',  // Kolom yang boleh diisi secara massal
+        'user_id',
         'name',
         'description',
         'status',
     ];
+
+    //karena poto di table yang berbeda
+    public function images()
+    {
+        return $this->hasMany(ImageRecipt::class);
+    }
 }
