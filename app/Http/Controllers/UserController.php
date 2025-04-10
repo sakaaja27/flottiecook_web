@@ -11,12 +11,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::select('*');
+            $data = User::select('*')->orderByDesc('created_at')->get();
 
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-warning btn-sm" data-id="' . $row->id . '">Edit</a>';
+                    $btn = '<a href="javascript:void(0)" class="reset btn btn-info btn-sm" data-id="' . $row->id . '">Reset password</a>';
+                    $btn .= '<a href="' . route('user.edit', $row->id) . '" class="edit btn btn-primary btn-sm ml-1">Edit</a>';
                     $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
                     return $btn;
                 })
@@ -57,7 +58,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return response()->json($user);
+        return view('livewire.pages.admin.users.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
@@ -71,12 +72,24 @@ class UserController extends Controller
         $user->update($request->all());
         // $user->update($request->only('name', 'email'));
 
-        return response()->json(['success' => 'User updated successfully.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'User berhasil diperbaharui!',
+            'redirect' => route('users.index')
+        ]);
     }
 
     public function destroy($id)
     {
         User::findOrFail($id)->delete();
         return response()->json(['success' => 'User deleted successfully.']);
+    }
+
+    public function reset($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['password' => bcrypt('password')]);
+
+        return response()->json(['success' => 'User Reset successfully.']);
     }
 }

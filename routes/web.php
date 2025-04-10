@@ -15,13 +15,14 @@ Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // users management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::POST('/users-reset/{id}', [UserController::class, 'reset'])->name('user.reset');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 

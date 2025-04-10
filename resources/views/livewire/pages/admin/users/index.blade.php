@@ -32,34 +32,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="ajaxModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modalHeading"></h4>
-                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="userForm" name="userForm">
-                    @csrf
-                    <input type="hidden" name="user_id" id="user_id">
-                    <input type="hidden" name="_method" id="form_method" value="POST">
-                    <div class="form-group">
-                        <label for="name">Nama:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-2" id="saveBtn">Simpan</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')
@@ -83,67 +55,68 @@
             ]
         });
 
-        $('body').on('click', '.edit', function () {
-            var user_id = $(this).data('id');
-            var url = "{{ route('user.edit', ':id') }}".replace(':id', user_id);
-
-            $.get(url, function (data) {
-                $('#modalHeading').html("Edit User");
-                $('#saveBtn').val("edit-user");
-                $('#ajaxModal').modal('show');
-                $('#user_id').val(data.id);
-                $('#name').val(data.name);
-                $('#email').val(data.email);
-                $('#form_method').val("PUT");
-            });
-        });
-
-        $('#saveBtn').click(function (e) {
-            e.preventDefault();
-            $(this).html('Menyimpan...');
-
-            var user_id = $('#user_id').val();
-            var url = '';
-            if (user_id) {
-                url = "{{ route('user.update', ':id') }}".replace(':id', user_id);
-                $('#form_method').val("PUT");
-            } else {
-                url = "{{ route('users.store') }}";
-                $('#form_method').val("POST");
-            }
-
-            $.ajax({
-                data: $('#userForm').serialize(),
-                url: url,
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                    $('#userForm').trigger("reset");
-                    $('#ajaxModal').modal('hide');
-                    table.draw();
-                    $('#saveBtn').html('Simpan');
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                    $('#saveBtn').html('Simpan');
-                }
-            });
-        });
-
-        $('body').on('click', '.delete', function () {
+        $('body').on('click', '.delete', function (_id,_name) {
             var user_id = $(this).data("id");
-            if (confirm("Yakin ingin menghapus?")) {
-                $.ajax({
-                    type: "DELETE",
-                    url: "{{ url('/users') }}/" + user_id,
-                    success: function (data) {
-                        table.draw();
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                    }
-                });
-            }
+            var user_name = $(this).data("name");
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ route('user.destroy','') }}/" + user_id,
+                        success: function (data) {
+                            table.draw();
+                            Swal.fire(
+                                'Terhapus!',
+                                'User telah dihapus.',
+                                'success'
+                            )
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            })
+        });
+
+        $('body').on('click','.reset', function (_id,_name) {
+            var user_id = $(this).data("id");
+            var user_name = $(this).data("name");
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, reset!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('user.reset', '') }}/" + user_id,
+                        success: function (data) {
+                            table.draw();
+                            Swal.fire(
+                                'Berhasil!',
+                                'Password telah direset.',
+                                'success'
+                            )
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            })
         });
     });
 </script>
