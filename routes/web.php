@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'home')->name('page.home');
+    Route::get('/aibot', 'aibot')->name('page.aibot');
+    Route::post('/aibotwithimage', 'aibotwithimage')->name('page.aibotwithimage');
 });
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
