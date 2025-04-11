@@ -17,20 +17,21 @@ class LandingPageController extends Controller
         return view('livewire.pages.frontend.consultation.pageaibot');
     }
 
-    function aibotwithimage(Request $request)    {
+    function aibotwithimage(Request $request)
+    {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $image = $request->file('image');
         $base64 = base64_encode(file_get_contents($image));
-        $apikey = env( 'GEMINI_API_KEY' );
+        $apikey = env('GEMINI_API_KEY');
         $load = [
-            'contens' => [
+            'contents' => [
                 [
                     'parts' => [
                         [
-                            'text' => "Berikan nama makanan, alat dan bahan yang digunakan dan cara memasaknya dari gambar ini.".
-                            "Pisahkan nama makanan dengan awalan '[NAMA MAKANAN]', pisahkan juga alat dan bahan dengan awalan '[Alat dan Bahan]', dan cara memasaknya dengan awalan '[Cara Memasak]'."
+                            'text' => "Berikan nama makanan, alat dan bahan yang digunakan dan cara pembuatan dari gambar ini." .
+                                "Pisahkan nama makanan dengan awalan '[NAMA MAKANAN]', pisahkan juga alat dan bahan dengan awalan '[ALAT DAN BAHAN]', dan cara pembuatan dengan awalan '[CARA PEMBUATAN]'."
                         ],
                         [
                             'inlineData' => [
@@ -42,10 +43,24 @@ class LandingPageController extends Controller
                 ]
             ]
         ];
-        $response = Http::post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apikey}",
-            $load
-        );
+        $response = Http::timeout(60)
+            ->withoutVerifying()
+            ->withHeaders([
+                'Content-Type' => 'application/json'
+            ])
+            ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apikey}", $load);
+
+
+        if (!$response->ok()) {
+            return response()->json([
+                'status' => 'error',
+                'result' => 'Gagal',
+                'response' => $response->body()
+            ], 500);
+        }
+
         $data = $response->json();
+
         if (isset($data['candidates']) && isset($data['candidates'][0]['content']['parts'])) {
             $result = $data['candidates'][0]['content']['parts'][0]['text'];
             return response()->json([
@@ -53,14 +68,19 @@ class LandingPageController extends Controller
                 'result' => $result
             ]);
         } else {
+
             return response()->json([
                 'status' => 'error',
                 'result' => 'Tidak dapat menghasilkan output dari gambar ini.'
             ], 422);
         }
+        if (!$response->ok()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal konek ke Gemini: ' . $response->body()
+            ], 500);
+        }
     }
 
-    function aibotwithtext() {
-
-    }
+    function aibotwithtext() {}
 }
