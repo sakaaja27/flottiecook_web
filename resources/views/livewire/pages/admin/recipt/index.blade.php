@@ -137,20 +137,20 @@
                 });
             });
 
-            $('body').on('click', '.edit', function () {
-                var recipt_id = $(this).data('id');
-                var url = "{{ route('recipt.edit', ':id') }}".replace(':id', recipt_id);
+            // $('body').on('click', '.edit', function () {
+            //     var recipt_id = $(this).data('id');
+            //     var url = "{{ route('recipt.edit', ':id') }}".replace(':id', recipt_id);
 
-                $.get(url, function (data) {
-                    $('#modalHeading').html("Edit Recipt");
-                    $('#saveBtn').val("edit-user");
-                    $('#ajaxModal').modal('show');
-                    $('#recipt_id').val(data.id);
-                    $('#name').val(data.name);
-                    $('#description').val(data.description);
-                    $('#status').val(data.status);
-                });
-            });
+            //     $.get(url, function (data) {
+            //         $('#modalHeading').html("Edit Recipt");
+            //         $('#saveBtn').val("edit-user");
+            //         $('#ajaxModal').modal('show');
+            //         $('#recipt_id').val(data.id);
+            //         $('#name').val(data.name);
+            //         $('#description').val(data.description);
+            //         $('#status').val(data.status);
+            //     });
+            // });
 
             $('body').on('click', '.delete', function () {
                 var recipt_id = $(this).data("id");

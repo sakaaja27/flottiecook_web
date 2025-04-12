@@ -8,6 +8,9 @@ use App\Models\ImageRecipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use public\storage\recipes;
+use public\Storage;
+
 
 class ReciptController extends Controller
 {
@@ -46,13 +49,18 @@ class ReciptController extends Controller
                     return $dropdown;
                 })
 
-
+                // ->addColumn('action', function ($row) {
+                //     return '
+                //         <a href="' . route('recipt.edit', $row->id) . '" class="edit btn btn-warning btn-sm" data-id="' . $row->id . '">Edit</a>
+                //         <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
+                // })
 
                 ->addColumn('action', function ($row) {
-                    return '
-                        <a  class="edit btn btn-warning btn-sm" data-id="' . $row->id . '">Edit</a>
-                        <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
+                    $btn = '<a href="' . route('recipt.edit', $row->id) . '" class="edit btn btn-primary btn-sm ml-1">Edit</a>';
+                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
+                    return $btn;
                 })
+
                 ->rawColumns(['photo', 'status', 'action'])
                 ->make(true);
         }
@@ -70,7 +78,7 @@ class ReciptController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
-            'status' => 'required|string',
+            'status' => 'string',
             'image_path' => 'required|array',
             'image_path.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -78,7 +86,7 @@ class ReciptController extends Controller
         $recipt = Recipt::create([
             'name' => $request->name,
             'description' => $request->description,
-            'status' => $request->status,
+            'status' => 'pending',
             'user_id' => Auth::id()
         ]);
 
@@ -101,39 +109,40 @@ class ReciptController extends Controller
     public function edit($id)
 {
     $recipt = Recipt::findOrFail($id);
-    return response()->json($recipt);
+    return view('livewire.pages.admin.recipt.edit', compact('recipt'));
 }
-
 
 public function update(Request $request, $id)
 {
     $request->validate([
-        'name' => 'required|string',
+        'name' => 'required|string|max:255',
         'description' => 'required|string',
-        'status' => 'required|string',
-        'image_path.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'image_path.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
     ]);
 
     $recipt = Recipt::findOrFail($id);
     $recipt->update([
         'name' => $request->name,
-        'description' => $request->description,
-        'status' => $request->status,
+        'description' => $request->description
     ]);
 
-    // Simpan foto baru jika ada
+    // Simpan gambar baru jika ada
     if ($request->hasFile('image_path')) {
-        foreach ($request->file('image_path') as $image) {
-            $path = $image->store('recipes', 'public');
+        foreach ($request->file('image_path') as $file) {
+            $path = $file->store('recipes', 'public');
 
             ImageRecipt::create([
                 'recipt_id' => $recipt->id,
-                'image_path' => $path,
+                'image_path' => $path
             ]);
         }
     }
 
-    return response()->json(['success' => true, 'message' => 'Resep berhasil diperbarui!']);
+    return response()->json([
+        'success' => true,
+        'message' => 'Recipe updated successfully!',
+        'redirect' => route('recipt.index')
+    ]);
 }
 
 
@@ -142,4 +151,16 @@ public function update(Request $request, $id)
         Recipt::findOrFail($id)->delete();
         return response()->json(['success' => 'Resep berhasil dihapus.']);
     }
+    public function destroyimage($id)
+{
+    $image = ImageRecipt::findOrFail($id);
+
+    // Hapus file dari storage
+    Storage::disk('public')->delete($image->image_path);
+
+    // Hapus dari database
+    $image->delete();
+
+    return back()->with('success', 'Gambar berhasil dihapus.');
+}
 }
