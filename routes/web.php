@@ -35,8 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::post('/recipt/store', [ReciptController::class, 'store'])->middleware('auth');
     Route::put('/recipt/{id}', [ReciptController::class, 'update'])->name('recipt.update');
     Route::get('/recipt/{id}/edit', [ReciptController::class, 'edit'])->name('recipt.edit');
-    Route::delete('recipt/{id}', [ReciptController::class, 'destroy'])->name('user.delete');
-    Route::delete('/image-recipt/{id}', [ReciptController::class, 'destroyimage'])->name('image_recipt.destroy');
+    Route::delete('recipt/{id}', [ReciptController::class, 'destroy'])->name('recipt.delete');
+    Route::delete('/recipt/image/{id}', [ReciptController::class, 'destroyimage'])->name('recipt.image.destroy');
 
 });
 

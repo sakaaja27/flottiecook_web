@@ -98,7 +98,7 @@
         });
     });
 
-    // Submit with AJAX
+    // Submit AJAX
     $(document).ready(function () {
         $('#createUserForm').on('submit', function (e) {
             e.preventDefault();
