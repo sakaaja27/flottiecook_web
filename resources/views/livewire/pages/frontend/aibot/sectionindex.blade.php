@@ -3,9 +3,9 @@
 <body class="index-page mt-5">
     @include('livewire.pages.components-frontend.header')
 
-    <section id="konsultasi" class="konsultasi section">
+    <section id="aibot" class="aibot section">
         <div class="container section-title d-flex flex-column align-items-center" data-aos="fade-up">
-            <h1 class="font-bold text-black">Hello <span class="text-blue-400">AiBot</span></h1>
+            <h1 class="font-bold text-black">Hello <span class="text-pink-400">AiBot</span></h1>
         </div>
         <div class="flex items-center justify-center text-center py-3">
             <h1 class="max-w-2xl">find your cooking recipe with the help of AiBot</h1>
@@ -13,7 +13,7 @@
         <!-- Main Section -->
         <div class="container" data-aos="fade-up" data-aos-delay="100">
             <div class="flex justify-end px-4 mb-4">
-                <button onclick="showScreen('text')" class="text-blue-500 hover:text-blue-700 mr-2"
+                <button onclick="showScreen('text')" class="text-pink-500 hover:text-pink-700 mr-2"
                     title="Cari dengan teks">
                     <i class="bi bi-fonts text-xl"></i>
                 </button>

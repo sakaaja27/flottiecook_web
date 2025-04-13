@@ -15,7 +15,7 @@
                 <div class="d-flex mt-4">
                     <button type="button"
                         class="text-white bg-pink-700 hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"><a
-                            href="./konsultasi" class="text-white">Started</a></button>
+                            href="{{ route('page.publishrecipe')}}" class="text-white">Started</a></button>
                 </div>
             </div>
 

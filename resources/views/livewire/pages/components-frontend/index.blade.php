@@ -2,6 +2,6 @@
 @section('content')
     @include('livewire.pages.frontend.herosection')
     @include('livewire.pages.frontend.reciptsection')
-    @include('livewire.pages.frontend.aibot.aibotsection')
-    @include('livewire.pages.frontend.sharerecipt')
+    @include('livewire.pages.frontend.aibot.page')
+    @include('livewire.pages.frontend.publishrecipe.page')
 @endsection

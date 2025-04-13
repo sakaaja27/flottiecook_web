@@ -14,7 +14,11 @@ class LandingPageController extends Controller
 
     function aibot()
     {
-        return view('livewire.pages.frontend.aibot.pageaibot');
+        return view('livewire.pages.frontend.aibot.sectionindex');
+    }
+
+    function publishrecipe(){
+        return view('livewire.pages.frontend.publishrecipe.sectionindex');
     }
 
     function aibotwithimage(Request $request)
