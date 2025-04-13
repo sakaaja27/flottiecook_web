@@ -14,7 +14,7 @@ class LandingPageController extends Controller
 
     function aibot()
     {
-        return view('livewire.pages.frontend.consultation.pageaibot');
+        return view('livewire.pages.frontend.aibot.pageaibot');
     }
 
     function aibotwithimage(Request $request)
@@ -30,7 +30,7 @@ class LandingPageController extends Controller
                 [
                     'parts' => [
                         [
-                            'text' => "Berikan nama makanan, alat dan bahan yang digunakan dan cara pembuatan dari gambar ini." .
+                            'text' => "Berikan nama makanan, alat dan bahan yang digunakan berikan spesifik komponen alat bahan yang dibutuhkan dan cara pembuatan dari gambar ini." .
                                 "Pisahkan nama makanan dengan awalan '[NAMA MAKANAN]', pisahkan juga alat dan bahan dengan awalan '[ALAT DAN BAHAN]', dan cara pembuatan dengan awalan '[CARA PEMBUATAN]'."
                         ],
                         [
@@ -82,5 +82,53 @@ class LandingPageController extends Controller
         }
     }
 
-    function aibotwithtext() {}
+    function aibotwithtext(Request $request) {
+        $validate = $request->validate([
+            'text' => 'required|string|max:100',
+        ]);
+        $text = $request->input('text');
+        $apikey = env('GEMINI_API_KEY');
+        $load = [
+            'contents' => [
+                [
+                    'parts' => [
+                        [
+                            'text' => "Berikan nama makanan, alat dan bahan yang digunakan berikan spesifik komponen alat bahan yang dibutuhkan dan cara pembuatan ini." .
+                                "Pisahkan nama makanan dengan awalan '[NAMA MAKANAN]', pisahkan juga alat dan bahan dengan awalan '[ALAT DAN BAHAN]', dan cara pembuatan dengan awalan '[CARA PEMBUATAN]'."
+                        ],
+                        [
+                            'text' => $text
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $response = Http::timeout(60)
+            ->withoutVerifying()
+            ->withHeaders([
+                'Content-Type' => 'application/json'
+            ])
+            ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={$apikey}", $load);
+        if (!$response->ok()) {
+            return response()->json([
+                'status' => 'error',
+                'result' => 'Gagal',
+                'response' => $response->body()
+            ], 500);
+        }
+        $data = $response->json();
+        if (isset($data['candidates']) && isset($data['candidates'][0]['content']['parts'])) {
+            $result = $data['candidates'][0]['content']['parts'][0]['text'];
+            return response()->json([
+                'status' => 'success',
+                'result' => $result
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'result' => 'Tidak dapat menghasilkan output.'
+            ], 422);
+        }
+
+    }
 }

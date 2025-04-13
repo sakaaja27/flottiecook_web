@@ -13,6 +13,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::get('/', 'home')->name('page.home');
     Route::get('/aibot', 'aibot')->name('page.aibot');
     Route::post('/aibotwithimage', 'aibotwithimage')->name('page.aibotwithimage');
+    Route::post('/aibotwithtext', 'aibotwithtext')->name('page.aibotwithtext');
 });
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
