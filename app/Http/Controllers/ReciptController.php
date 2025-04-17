@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipt;
 use App\Models\ImageRecipt;
+use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,11 @@ class ReciptController extends Controller
 
     public function create()
     {
-        return view('livewire.pages.admin.recipt.create');
+
+        $categories = RecipeCategory::all();
+        return view('livewire.pages.admin.recipt.create', compact('categories'));
+
+
     }
 
     public function store(Request $request)
@@ -57,13 +62,22 @@ class ReciptController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'status' => 'string',
+            'ingredient' => 'string',
+            'tools' => 'string',
+            'instruction' => 'string',
             'image_path' => 'required|array|max:3',
             'image_path.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        //menyimpan data ke table recipt
         $recipt = Recipt::create([
             'name' => $request->name,
+            'category' => $request->category,
             'description' => $request->description,
+            'ingredient' => $request->ingredient,
+            'tools' => $request->tools,
+            'instruction' => $request->instruction,
+            'category_id' => $request->category_id,
             'status' => 'pending',
             'user_id' => Auth::id()
         ]);
@@ -77,6 +91,7 @@ class ReciptController extends Controller
             ]);
         }
 
+
         return response()->json([
             'success' => true,
             'message' => 'Resep berhasil ditambahkan!',
@@ -87,14 +102,18 @@ class ReciptController extends Controller
     public function edit($id)
     {
         $recipt = Recipt::with('images')->findOrFail($id);
-        return view('livewire.pages.admin.recipt.edit', compact('recipt'));
+        $categories = RecipeCategory::all();
+        return view('livewire.pages.admin.recipt.edit', compact('recipt', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'string',
+            'tools' => 'string',
+            'ingredient' => 'string',
+            'instruction' => 'string',
             'image_path.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -103,6 +122,10 @@ class ReciptController extends Controller
         $recipt->update([
             'name' => $request->name,
             'description' => $request->description,
+            'tools' => $request->tools,
+            'ingredient' => $request->ingredient,
+            'instruction' => $request->instruction,
+            'category_id' => $request->cetegory
         ]);
 
         // untuk hitung gambar

@@ -29,10 +29,49 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="category_id" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select name="category_id" id="category_id" required
+                                    class="form-control text-gray-500"
+                                    onchange="this.classList.remove('text-gray-500'); this.classList.add('text-black');">
+                                    <option value="" selected disabled>-- Pilih Kategori --</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
                                 <textarea id="description" name="description" rows="5" required
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Describe your food..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="tools" class="col-sm-2 col-form-label">Tools</label>
+                            <div class="col-sm-10">
+                                <textarea id="tools" name="tools" rows="5" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add tools"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="ingredient" class="col-sm-2 col-form-label">Ingredients</label>
+                            <div class="col-sm-10">
+                                <textarea id="ingredient" name="ingredient" rows="5" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add ingredients"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="instruction" class="col-sm-2 col-form-label">Instruction</label>
+                            <div class="col-sm-10">
+                                <textarea id="instruction" name="instruction" rows="5" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Add cooking step""></textarea>
                             </div>
                         </div>
 

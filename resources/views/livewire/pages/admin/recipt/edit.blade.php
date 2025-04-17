@@ -36,9 +36,48 @@
                         </div>
 
                         <div class="mb-3 row">
+                            <label for="category_id" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+
+                                <select name="category_id" id="category_id" required
+                                class="form-control {{ old('category_id', $recipt->category_id) ? 'text-black' : 'text-gray-500' }}"
+                                onchange="this.classList.remove('text-gray-500'); this.classList.add('text-black');">
+                                <option value="" disabled {{ !$recipt->category_id ? 'selected' : '' }}>-- Pilih Kategori --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id', $recipt->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
                                 <input type="text" id="description" name="description" value="{{ $recipt->description }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="tools" class="col-sm-2 col-form-label">Tools</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="tools" name="tools" value="{{ $recipt->tools }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="ingredient" class="col-sm-2 col-form-label">Ingredients</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="ingredient" name="ingredient" value="{{ $recipt->ingredient }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="instruction" class="col-sm-2 col-form-label">Instructions</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="instruction" name="instruction" value="{{ $recipt->instruction }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                             </div>
                         </div>
 
@@ -68,7 +107,7 @@
                                 <img src="" id="showImage" class="img-fluid mt-3 mb-3 d-none" style="max-width: 200px; max-height: 200px;">
                                 {{-- Upload gambar baru --}}
                                 <div class="input-group mb-2">
-                                    <input type="file" class=" px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" name="image_path[]" id="image_path" accept="image/*" multiple required>
+                                    <input type="file" class=" px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" name="image_path[]" id="image_path" accept="image/*" multiple>
                                     <button type="button" class="btn btn-success add-btn">
                                         <i class="mdi mdi-plus-box"></i>
                                     </button>

@@ -17,6 +17,10 @@ class Recipt extends Model
         'user_id',
         'name',
         'description',
+        'category_id',
+        'ingredient',
+        'tools',
+        'instruction',
         'status',
     ];
 
@@ -24,5 +28,10 @@ class Recipt extends Model
     public function images()
     {
         return $this->hasMany(ImageRecipt::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(RecipeCategory::class, 'category_id');
     }
 }
