@@ -31,14 +31,14 @@
                         <div class="mb-3 row">
                             <label for="name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" id="name" name="name" value="{{ $recipt->name }}" required class="form-control" />
+                                <input type="text" id="name" name="name" value="{{ $recipt->name }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <input type="text" id="description" name="description" value="{{ $recipt->description }}" required class="form-control" />
+                                <input type="text" id="description" name="description" value="{{ $recipt->description }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@
                                 <img src="" id="showImage" class="img-fluid mt-3 mb-3 d-none" style="max-width: 200px; max-height: 200px;">
                                 {{-- Upload gambar baru --}}
                                 <div class="input-group mb-2">
-                                    <input type="file" class="form-control" name="image_path[]" id="image_path" accept="image/*" multiple required>
+                                    <input type="file" class=" px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" name="image_path[]" id="image_path" accept="image/*" multiple required>
                                     <button type="button" class="btn btn-success add-btn">
                                         <i class="mdi mdi-plus-box"></i>
                                     </button>
@@ -141,7 +141,7 @@
                 const newInput = document.createElement("div");
                 newInput.className = "input-group mb-2";
                 newInput.innerHTML = `
-                    <input type="file" name="image_path[]" class="form-control" required>
+                    <input type="file" name="image_path[]" class=" px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                     <button type="button" class="btn btn-danger remove-btn">
                         <i class="mdi mdi-close-box"></i>
                     </button>`;
@@ -193,7 +193,7 @@
                 newInput.className = "input-group mb-2";
 
                 newInput.innerHTML = `
-                    <input type="file" name="image_path[]" class="form-control" required>
+                    <input type="file" name="image_path[]" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                     <button type="button" class="btn btn-danger remove-btn">
                         <i class="mdi mdi-close-box"></i>
                     </button>

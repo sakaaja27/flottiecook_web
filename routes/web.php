@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\RecipesCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReciptController;
 use Illuminate\Foundation\Auth\User;
@@ -17,7 +18,7 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::post('/aibotwithtext', 'aibotwithtext')->name('page.aibotwithtext');
     // recipe
     Route::get('/publishrecipe', 'publishrecipe')->name('page.publishrecipe');
-    
+
 });
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
@@ -42,6 +43,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/recipt/{id}/edit', [ReciptController::class, 'edit'])->name('recipt.edit');
     Route::delete('recipt/{id}', [ReciptController::class, 'destroy'])->name('recipt.delete');
     Route::delete('/recipt/image/{id}', [ReciptController::class, 'destroyimage'])->name('recipt.image.destroy');
+
+    Route::get('/recipes_category', [RecipesCategoryController::class, 'index'])->name('recipe.category.index');
+    Route::get('/recipes_category/create', [RecipesCategoryController::class, 'create'])->name('recipe.category.create');
+    Route::post('/recipes_category/store', [RecipesCategoryController::class, 'store'])->name('recipe.category.store');
+    Route::get('/recipes_category/{id}/edit', [RecipesCategoryController::class, 'edit'])->name('recipe.category.edit');
+    Route::put('/recipes_category/{id}', [RecipesCategoryController::class, 'update'])->name('recipe.category.update');
+    Route::delete('/recipes_category/{id}', [RecipesCategoryController::class, 'destroy'])->name('recipe.category.destroy');
 
 });
 

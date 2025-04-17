@@ -36,7 +36,7 @@ class ReciptController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="' . route('recipt.edit', $row->id) . '" class="edit btn btn-primary btn-sm ml-1">Edit</a>';
-                    $btn .= ' <a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
+                    $btn .= '<a href="javascript:void(0)" class="ml-1 delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['status', 'action'])
@@ -135,7 +135,7 @@ class ReciptController extends Controller
         ]);
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $recipt = Recipt::findOrFail($id);
 
@@ -147,7 +147,11 @@ class ReciptController extends Controller
 
         $recipt->delete();
 
-        return response()->json(['success' => 'Resep berhasil dihapus.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Recipe  deleted successfully',
+            'redirect' => route('recipt.index'),
+        ]);
     }
 
     public function destroyimage($id)

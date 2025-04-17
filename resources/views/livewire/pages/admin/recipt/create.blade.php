@@ -23,7 +23,7 @@
                         <div class="mb-3 row">
                             <label for="name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" id="name" name="name" required class="form-control"
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     placeholder="Enter Food Name" />
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <label for="description" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
                                 <textarea id="description" name="description" rows="5" required
-                                    class="form-control" placeholder="Describe your food..."></textarea>
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Describe your food..."></textarea>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@
                             <label class="col-sm-2 col-form-label">Image</label>
                             <div class="col-sm-10" id="file-container">
                                 <div class="input-group mb-2">
-                                    <input type="file" name="image_path[]" class="form-control" required>
+                                    <input type="file" name="image_path[]" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                                     <button type="button" class="btn btn-success add-btn">
                                         <i class="mdi mdi-plus-box"></i>
                                     </button>
@@ -84,7 +84,7 @@
                 newInput.className = "input-group mb-2";
 
                 newInput.innerHTML = `
-                    <input type="file" name="image_path[]" class="form-control" required>
+                    <input type="file" name="image_path[]" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                     <button type="button" class="btn btn-danger remove-btn">
                         <i class="mdi mdi-close-box"></i>
                     </button>
@@ -102,7 +102,7 @@
     $(document).ready(function () {
         $('#createUserForm').on('submit', function (e) {
             e.preventDefault();
-
+            console.log('Form submitted');
             $.ajax({
                 url: "{{ route('recipt.store') }}",
                 method: "POST",
