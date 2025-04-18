@@ -6,6 +6,8 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RecipesCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReciptController;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\isAdmin;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +26,7 @@ Route::controller(LandingPageController::class)->group(function () {
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', isAdmin::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // users management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
