@@ -94,7 +94,7 @@ class ReciptController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Resep berhasil ditambahkan!',
+            'message' => 'Recipe has been successfully saved!',
             'redirect' => route('recipt.index'),
         ]);
     }
@@ -125,7 +125,7 @@ class ReciptController extends Controller
             'tools' => $request->tools,
             'ingredient' => $request->ingredient,
             'instruction' => $request->instruction,
-            'category_id' => $request->cetegory
+            'category_id' => $request->category_id
         ]);
 
         // untuk hitung gambar
@@ -135,7 +135,7 @@ class ReciptController extends Controller
         if ($existingImages + count($newImages) > 3) {
             return response()->json([
                 'success' => false,
-                'message' => 'Total gambar tidak boleh lebih dari 3.'
+                'message' => 'Maximum of 3 images allowed.'
             ], 422);
         }
 
@@ -190,7 +190,7 @@ class ReciptController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Gambar berhasil dihapus.'
+            'message' => 'Image deleted successfully.'
         ]);
     }
 }
