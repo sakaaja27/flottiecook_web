@@ -13,7 +13,6 @@
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
                     aria-expanded="false">
-
                     <div class="nav-profile-text">
                         <p class="mb-1 text-black">{{Auth::user()->name}}</p>
                     </div>

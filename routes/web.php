@@ -55,6 +55,13 @@ Route::middleware(['auth', 'verified', isAdmin::class])->group(function () {
 
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/publishrecipe',[LandingPageController::class, 'recipes'])->name('page.recipes');
+    Route::post('/publishrecipe/store',[LandingPageController::class, 'store'])->name('page.recipes.store');
+});
+
+
+
 
 
 

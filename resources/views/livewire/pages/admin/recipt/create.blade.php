@@ -18,7 +18,7 @@
                         <i class="mdi mdi-arrow-left"></i> Back
                     </a>
 
-                    <form id="createUserForm" enctype="multipart/form-data">
+                    <form id="recipes" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="name" class="col-sm-2 col-form-label">Name</label>
@@ -137,9 +137,8 @@
         });
     });
 
-    // Submit AJAX
     $(document).ready(function () {
-        $('#createUserForm').on('submit', function (e) {
+        $('#recipes').on('submit', function (e) {
             e.preventDefault();
             console.log('Form submitted');
             $.ajax({

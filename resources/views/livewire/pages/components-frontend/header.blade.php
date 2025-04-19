@@ -6,8 +6,6 @@
                 autoplay></dotlottie-player>
             <h1 class="sitename">LattieCook</h1>
         </a>
-
-
         <nav id="navmenu" class="navmenu">
             <ul id="menu-list">
                 <li><a href="./#hero" class="active">Home</a></li>

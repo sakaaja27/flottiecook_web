@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImageRecipt;
+use App\Models\RecipeCategory;
+use App\Models\Recipt;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -134,5 +138,54 @@ class LandingPageController extends Controller
             ], 422);
         }
 
+    }
+
+    public function recipes()
+    {
+        $categories = RecipeCategory::all();
+        return view('livewire.pages.frontend.publishrecipe.sectionindex', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        // return $request->all();
+        $request->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'string',
+            'ingredient' => 'string',
+            'tools' => 'string',
+            'instruction' => 'string',
+            'image_path' => 'required|array|max:3',
+            'image_path.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $recipt = Recipt::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'description' => $request->description,
+            'ingredient' => $request->ingredient,
+            'tools' => $request->tools,
+            'instruction' => $request->instruction,
+            'category_id' => $request->category_id,
+            'status' => 'pending',
+            'user_id' => Auth::id()
+        ]);
+
+        foreach ($request->file('image_path') as $image) {
+            $path = $image->store('recipes', 'public');
+
+            ImageRecipt::create([
+                'recipt_id' => $recipt->id,
+                'image_path' => $path,
+            ]);
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Recipe has been successfully saved!',
+            'redirect' => route('page.publishrecipe'),
+        ]);
     }
 }
