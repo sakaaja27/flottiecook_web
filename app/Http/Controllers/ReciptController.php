@@ -20,23 +20,19 @@ class ReciptController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('status', function ($row) {
-                    $statuses = ['pending', 'approved', 'rejected'];
                     $colorClasses = [
                         'pending' => 'bg-warning text-dark',
-                        'approved' => 'bg-success text-white',
-                        'rejected' => 'bg-danger text-white',
+                        'accept' => 'bg-success text-white',
+                        'reject' => 'bg-danger text-white',
                     ];
-
-                    $dropdown = '<select class="form-select form-select-sm status-dropdown ' . ($colorClasses[$row->status] ?? '') . '" data-id="' . $row->id . '">';
-                    foreach ($statuses as $status) {
-                        $selected = $row->status === $status ? 'selected' : '';
-                        $dropdown .= '<option value="' . $status . '" ' . $selected . '>' . ucfirst($status) . '</option>';
-                    }
-                    $dropdown .= '</select>';
-                    return $dropdown;
+                    $statusClass = $colorClasses[$row->status] ?? 'bg-secondary text-white';
+                    return '<span class="badge ' . $statusClass . '">' . ucfirst($row->status) . '</span>';
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('recipt.edit', $row->id) . '" class="edit btn btn-primary btn-sm ml-1">Edit</a>';
+                    $btn = '<a href="' . route('recipt.show', $row->id) . '" class="show btn text-white btn-info btn-sm ml-1">Show</a>';
+                    if ($row->status == 'pending' && Auth::user()->role == 'user') {
+                        $btn .= '<a href="' . route('recipt.edit', $row->id) . '" class="edit btn btn-primary btn-sm ml-1">Edit</a>';
+                    }
                     $btn .= '<a href="javascript:void(0)" class="ml-1 delete btn btn-danger btn-sm" data-id="' . $row->id . '">Delete</a>';
                     return $btn;
                 })
@@ -52,8 +48,6 @@ class ReciptController extends Controller
 
         $categories = RecipeCategory::all();
         return view('livewire.pages.admin.recipt.create', compact('categories'));
-
-
     }
 
     public function store(Request $request)
@@ -105,6 +99,7 @@ class ReciptController extends Controller
         $categories = RecipeCategory::all();
         return view('livewire.pages.admin.recipt.edit', compact('recipt', 'categories'));
     }
+
 
     public function update(Request $request, $id)
     {
@@ -191,6 +186,35 @@ class ReciptController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Image deleted successfully.'
+        ]);
+    }
+
+    public function show($id)
+    {
+        $recipt = Recipt::with('images')->findOrFail($id);
+        $categories = RecipeCategory::all();
+        return view('livewire.pages.admin.recipt.detail', compact('recipt', 'categories'));
+    }
+
+    public function approvedRejected(Request $request, $id)
+    {
+        $recipt = Recipt::findOrFail($id);
+        $status = $request->input('status');
+
+        if (!in_array($status, ['accept', 'reject'])) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Status tidak valid'
+            ], 400);
+        }
+
+        $recipt->status = $status;
+        $recipt->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Recipe has been $status.",
+            'redirect' => route('recipt.index')
         ]);
     }
 }

@@ -45,6 +45,8 @@ Route::middleware(['auth', 'verified', isAdmin::class])->group(function () {
     Route::get('/recipt/{id}/edit', [ReciptController::class, 'edit'])->name('recipt.edit');
     Route::delete('recipt/{id}', [ReciptController::class, 'destroy'])->name('recipt.delete');
     Route::delete('/recipt/image/{id}', [ReciptController::class, 'destroyimage'])->name('recipt.image.destroy');
+    Route::get('/recipt/{id}', [ReciptController::class, 'show'])->name('recipt.show');
+    Route::post('/recipt/approved_rejected/{id}', [ReciptController::class, 'approvedRejected'])->name('recipt.approve');
 
     Route::get('/recipes_category', [RecipesCategoryController::class, 'index'])->name('recipe.category.index');
     Route::get('/recipes_category/create', [RecipesCategoryController::class, 'create'])->name('recipe.category.create');

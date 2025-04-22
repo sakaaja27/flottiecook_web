@@ -23,7 +23,7 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Status</th>
-                                            {{-- <th>Photo</th> --}}
+                                           
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -34,49 +34,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        {{-- <div class="modal fade" id="ajaxModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalHeading"></h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="reciptForm" name="reciptForm" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="recipt_id" id="recipt_id">
-                        <input type="hidden" name="_method" id="form_method" value="POST">
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <input type="text" class="form-control" id="description" name="description" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <select class="form-control" id="status" name="status" required>
-                                <option value="">-- Pilih Status --</option>
-                                <option value="pending">Pending</option>
-                                <option value="approved">Approved</option>
-                                <option value="rejected">Rejected</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="photo">Photo:</label>
-                            <input type="file" class="form-control" id="photo" name="image_path[]" multiple required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-2" id="saveBtn">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     @endsection
 
     @push('scripts')
@@ -110,7 +67,7 @@
                             data: 'status',
                             name: 'status'
                         },
-                       
+
                         {
                             data: 'action',
                             name: 'action',
