@@ -25,7 +25,7 @@
 <script>
     document.getElementById('startButton').addEventListener('click', function() {
         @if(auth()->check())
-            window.location.href = "{{ route('page.publishrecipe') }}";
+            window.location.href = "{{ route('page.recipes') }}";
         @else
             Swal.fire({
                 title: 'Login Required',

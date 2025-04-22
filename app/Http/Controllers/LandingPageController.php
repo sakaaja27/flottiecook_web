@@ -148,7 +148,6 @@ class LandingPageController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->all();
         $request->validate([
             'name' => 'required|string',
             'description' => 'required|string',
@@ -180,12 +179,6 @@ class LandingPageController extends Controller
                 'image_path' => $path,
             ]);
         }
-
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Recipe has been successfully saved!',
-            'redirect' => route('page.publishrecipe'),
-        ]);
+        return redirect()->route('page.recipes')->with('success', 'Recipe has been successfully saved!');
     }
 }
