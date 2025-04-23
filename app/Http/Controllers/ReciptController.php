@@ -15,7 +15,10 @@ class ReciptController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Recipt::with('images')->select('*');
+            $data = Recipt::with('images');
+            if ($request->status && $request->status != 'all') {
+                $data->where('status', $request->status);
+            }
 
             return DataTables::of($data)
                 ->addIndexColumn()

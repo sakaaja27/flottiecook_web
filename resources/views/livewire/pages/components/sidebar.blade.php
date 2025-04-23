@@ -23,12 +23,12 @@
             </a>
 
         </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="{{ route('recipt.index') }}" aria-expanded="false" aria-controls="icons">
                 <span class="menu-title">Recipe</span>
                 <i class="mdi mdi-food menu-icon"></i>
             </a>
-
         </li>
 
     </ul>
