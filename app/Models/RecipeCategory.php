@@ -10,7 +10,8 @@ class RecipeCategory extends Model
 
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'image'
     ];
 
     protected $guarded = ['id'];

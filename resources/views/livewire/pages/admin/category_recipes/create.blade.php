@@ -29,6 +29,13 @@
                                         placeholder="Enter Food Name" />
                                 </div>
                             </div>
+                            <div class="mb-3 row">
+                                <label for="image" class="col-sm-2 col-form-label">image</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="image" name="image" required
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                         />
+                            </div>
                             <div class="offset-sm-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary">SAVE</button>
                             </div>

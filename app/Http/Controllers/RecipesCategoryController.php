@@ -39,10 +39,18 @@ class RecipesCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:recipes_category,name',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         RecipeCategory::create([
             'name' => $request->name,
         ]);
+        foreach ($request->file('image') as $image) {
+            $path = $image->store('recipes_category', 'public');
+
+            RecipeCategory::create([
+                'image' => $path,
+            ]);
+        }
         return response()->json([
             'status' => true,
             'message' => 'Recipe category created successfully.',

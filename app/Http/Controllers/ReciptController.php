@@ -14,10 +14,17 @@ class ReciptController extends Controller
 {
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             $data = Recipt::with('images');
             if ($request->status && $request->status != 'all') {
                 $data->where('status', $request->status);
+            }
+
+            if (Auth::user()->role == 'admin') {
+                $data = $data;
+            } elseif (Auth::user()->role == 'user') {
+                $data = $data->where('user_id', Auth::id());
             }
 
             return DataTables::of($data)
