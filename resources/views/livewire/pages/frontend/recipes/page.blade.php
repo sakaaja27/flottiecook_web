@@ -37,60 +37,20 @@
             </div>
         </div>
     </div>
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="container mx-auto" data-aos="fade-up" data-aos-delay="100">
         <div class="w-full py-20">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
-                    <p class="mt-2 text-sm font-semibold">Dessert</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
-                    <p class="mt-2 text-sm font-semibold">Makanan Ringan</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
-                    <p class="mt-2 text-sm font-semibold">Makanan Berat</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
-                    <p class="mt-2 text-sm font-semibold">Minuman Panas</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
-                    <p class="mt-2 text-sm font-semibold">Minuman Dingin</p>
-                </div>
+            <h2 class="text-2xl font-bold text-center mb-8">Explore Recipes by Category</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+                @foreach ($recipescategory as $category)
+                    <div class="text-center">
 
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
-                    <p class="mt-2 text-sm font-semibold">Makanan Rendah Kalori</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
-                    <p class="mt-2 text-sm font-semibold">Ice Cream</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
-                    <p class="mt-2 text-sm font-semibold">Seafood</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
-                    <p class="mt-2 text-sm font-semibold">Resep Daging</p>
-                </div>
-                <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
-                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
-                    <p class="mt-2 text-sm font-semibold">Resep Ayam</p>
-                </div>
+                        <div class="relative w-full pb-[100%] rounded-lg overflow-hidden bg-gray-200 mb-2">
+                            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-90"
+                                src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
+                        </div>
+                        <p class="mt-2 text-sm font-semibold">{{ $category->name }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
