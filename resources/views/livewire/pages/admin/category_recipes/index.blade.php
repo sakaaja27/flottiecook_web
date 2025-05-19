@@ -33,8 +33,30 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "{{ route('recipe.category.index') }}";
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'Coba Lagi'
+            });
+        @endif
+    </script>
     <script>
         $(function() {
+
             $('#category-table').DataTable({
                 processing: true,
                 serverSide: true,

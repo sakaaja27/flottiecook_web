@@ -1,5 +1,7 @@
 @extends('livewire.pages.components.main')
 
+@extends('livewire.pages.components.main')
+
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -19,7 +21,7 @@
                             <i class="mdi mdi-arrow-left"></i> Back
                         </a>
 
-                        <form id="category" enctype="multipart/form-data">
+                        <form action="{{ route('recipe.category.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3 row">
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
@@ -30,14 +32,16 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="image" class="col-sm-2 col-form-label">image</label>
+                                <label for="image" class="col-sm-2 col-form-label">Image</label>
                                 <div class="col-sm-10">
                                     <input type="file" id="image" name="image" required
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                         />
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                </div>
                             </div>
-                            <div class="offset-sm-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">SAVE</button>
+                            <div class="mb-3 row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">SAVE</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -49,48 +53,23 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(function() {
-            $(document).on('submit', '#category', function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: "{{ route('recipe.category.store') }}",
-                    type: "POST",
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: response.message,
-                            confirmButtonText: 'OK'
-                        }).then(() => {
-                            window.location.href = response.redirect;
-                        });
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) {
-                            const errors = xhr.responseJSON.errors;
-                            let errorMessage = '';
-                            $.each(errors, function(key, value) {
-                                errorMessage += value[0] + '\n';
-                            });
-                            Swal.fire({
-                                title: 'Error!',
-                                text: errorMessage,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'An unexpected error occurred.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    }
-                });
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "{{ route('recipe.category.index') }}";
             });
-        });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'Coba Lagi'
+            });
+        @endif
     </script>
 @endpush

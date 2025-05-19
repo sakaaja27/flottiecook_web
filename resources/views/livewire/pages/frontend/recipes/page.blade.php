@@ -20,9 +20,11 @@
                                     src="{{ asset('storage/' . $recipe->images->first()->image_path) }}"
                                     alt="Featured Recipe {{ $loop->iteration }}">
                             @endif
-                            <div
-                                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                <h2 class="text-white text-xl md:text-2xl font-bold">{{ $recipe->title }}</h2>
+                            <div class="absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-80 py-2 px-4">
+                                <p class="text-white text-lg md:text-lg font-bold">{{ $recipe->name }}</p>
+                                <p class="text-white text-sm md:text-sm font-semibold">
+                                    {{ Str::words($recipe->description, 50, '...') }}
+                                </p>
                             </div>
                         </div>
                     @endforeach
