@@ -16,7 +16,7 @@ class ReciptController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = Recipt::with('images');
+            $data = Recipt::with('images')->orderBy('created_at', 'desc');
             if ($request->status && $request->status != 'all') {
                 $data->where('status', $request->status);
             }
@@ -86,13 +86,22 @@ class ReciptController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        foreach ($request->file('image_path') as $image) {
-            $path = $image->store('recipes', 'public');
+        try {
+            $data = $recipt;
+            $data['user_id'] = Auth::id();
+            foreach ($request->file('image_path') as $image) {
+                $path = $image->store('recipes/' . now()->format('Y-m.d') . '/' . $data['user_id'], 'public');
 
-            ImageRecipt::create([
-                'recipt_id' => $recipt->id,
-                'image_path' => $path,
-            ]);
+                ImageRecipt::create([
+                    'recipt_id' => $recipt->id,
+                    'image_path' => $path,
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to save recipe. Please try again.',
+            ], 500);
         }
 
 

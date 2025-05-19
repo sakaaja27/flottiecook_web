@@ -10,8 +10,7 @@ class Recipt extends Model
 {
     use HasFactory, Notifiable;
 
-    public $timestamps = false;
-    protected $table = 'recipt';
+        protected $table = 'recipt';
 
     protected $fillable = [
         'user_id',

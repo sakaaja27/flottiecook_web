@@ -21,6 +21,8 @@ Route::controller(LandingPageController::class)->group(function () {
     Route::post('/aibotwithtext', 'aibotwithtext')->name('page.aibotwithtext');
     // recipe
     Route::get('/publishrecipe', 'publishrecipe')->name('page.publishrecipe');
+    // news recipes
+    Route::get('/news-recipes','getrecipespublished')->name('page.news-recipes');
 });
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');

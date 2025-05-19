@@ -109,6 +109,7 @@
                                     @endif
                                 </div>
                             </div>
+                            @if(Auth::user()->role != 'user')
                             @if ($recipt->status == 'pending')
                                 <div class="flex items-center justify-center space-x-4 mt-8 mb-4 ">
                                     <button
@@ -122,6 +123,7 @@
                                         <i class="mdi mdi-close"></i> reject
                                     </button>
                                 </div>
+                            @endif
                             @endif
                         </form>
                     </div>

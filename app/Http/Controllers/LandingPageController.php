@@ -13,7 +13,8 @@ class LandingPageController extends Controller
 {
     function home()
     {
-        return view('livewire.pages.components-frontend.index');
+        $data = Recipt::with('images')->where('status', 'accept')->get();
+        return view('livewire.pages.components-frontend.index', compact('data'));
     }
 
     function aibot()
@@ -21,7 +22,8 @@ class LandingPageController extends Controller
         return view('livewire.pages.frontend.aibot.sectionindex');
     }
 
-    function publishrecipe(){
+    function publishrecipe()
+    {
         return view('livewire.pages.frontend.publishrecipe.sectionindex');
     }
 
@@ -90,7 +92,8 @@ class LandingPageController extends Controller
         }
     }
 
-    function aibotwithtext(Request $request) {
+    function aibotwithtext(Request $request)
+    {
         $validate = $request->validate([
             'text' => 'required|string|max:100',
         ]);
@@ -137,7 +140,6 @@ class LandingPageController extends Controller
                 'result' => 'Tidak dapat menghasilkan output.'
             ], 422);
         }
-
     }
 
     public function recipes()
@@ -171,14 +173,23 @@ class LandingPageController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        foreach ($request->file('image_path') as $image) {
-            $path = $image->store('recipes', 'public');
+        try {
+            $data = $recipt;
+            $data['user_id'] = Auth::id();
+            foreach ($request->file('image_path') as $image) {
+                $path = $image->store('recipes/' .now()->format('Y-m-d') . '/' . $recipt['user_id'], 'public');
 
-            ImageRecipt::create([
-                'recipt_id' => $recipt->id,
-                'image_path' => $path,
-            ]);
+                ImageRecipt::create([
+                    'recipt_id' => $recipt->id,
+                    'image_path' => $path,
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Failed to upload image: ' . $th->getMessage());
         }
+
         return redirect()->route('page.recipes')->with('success', 'Recipe has been successfully saved!');
     }
+
+
 }

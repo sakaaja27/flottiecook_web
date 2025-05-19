@@ -6,24 +6,28 @@
         <div class="w-full max-w-full h-[320px]">
             <div class="swiper mySwiper w-full h-full rounded-xl overflow-hidden relative">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide relative w-full h-full">
-                        <img class="w-full h-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Featured Recipe 1">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                            <h2 class="text-white text-xl md:text-2xl font-bold">Delicious Pasta Carbonara</h2>
+                    @if ($data->isEmpty())
+                        <div class="swiper-slide relative w-full h-full d-flex justify-center items-center">
+                            <div class="absolute bg-gradient-to-t from-black/70 to-transparent">
+                                <h2 class="text-black text-xl md:text-2xl font-bold">No Recipes Available</h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide relative w-full h-full">
-                        <img class="w-full h-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Featured Recipe 2">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                            <h2 class="text-white text-xl md:text-2xl font-bold">Homemade Pizza</h2>
+                    @endif
+                    @foreach ($data as $recipe)
+                        <div class="swiper-slide relative w-full h-full">
+                            @if ($recipe->images->isNotEmpty())
+                                <img class="w-full h-full object-cover"
+                                    src="{{ asset('storage/' . $recipe->images->first()->image_path) }}"
+                                    alt="Featured Recipe {{ $loop->iteration }}">
+                            @endif
+                            <div
+                                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                                <h2 class="text-white text-xl md:text-2xl font-bold">{{ $recipe->title }}</h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide relative w-full h-full">
-                        <img class="w-full h-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Featured Recipe 3">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                            <h2 class="text-white text-xl md:text-2xl font-bold">Fresh Summer Salad</h2>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next text-white"></div>
@@ -35,44 +39,54 @@
         <div class="w-full py-20">
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
                     <p class="mt-2 text-sm font-semibold">Dessert</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
                     <p class="mt-2 text-sm font-semibold">Makanan Ringan</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
                     <p class="mt-2 text-sm font-semibold">Makanan Berat</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
                     <p class="mt-2 text-sm font-semibold">Minuman Panas</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
                     <p class="mt-2 text-sm font-semibold">Minuman Dingin</p>
                 </div>
 
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Recipe 1">
                     <p class="mt-2 text-sm font-semibold">Makanan Rendah Kalori</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Recipe 2">
                     <p class="mt-2 text-sm font-semibold">Ice Cream</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Recipe 3">
                     <p class="mt-2 text-sm font-semibold">Seafood</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Recipe 4">
                     <p class="mt-2 text-sm font-semibold">Resep Daging</p>
                 </div>
                 <div class="text-center">
-                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
+                    <img class="h-auto w-full rounded-lg transition duration-300 hover:scale-90"
+                        src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="Recipe 5">
                     <p class="mt-2 text-sm font-semibold">Resep Ayam</p>
                 </div>
             </div>
@@ -97,5 +111,6 @@
                 prevEl: ".swiper-button-prev",
             },
         });
+
     });
 </script>
