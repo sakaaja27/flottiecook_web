@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\RecipesCategoryController;
 use App\Http\Controllers\UserController;
@@ -60,6 +61,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/recipt/image/{id}', [ReciptController::class, 'destroyimage'])->name('recipt.image.destroy');
     Route::get('/recipt/{id}', [ReciptController::class, 'show'])->name('recipt.show');
     Route::post('/recipt/approved_rejected/{id}', [ReciptController::class, 'approvedRejected'])->name('recipt.approve');
+
+    // history
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
+    Route::get('/history/{id}/edit', [HistoryController::class, 'edit'])->name('history.edit');
+    Route::put('/history/{id}', [HistoryController::class, 'update'])->name('history.update');
+    Route::post('/history/store', [HistoryController::class, 'store'])->name('history.store');
+    // Route::delete('/history/{id}', [HistoryController::class, 'destroy'])->name('history.delete');
+    Route::delete('/history/{id}', [HistoryController::class, 'destroy'])->name('history.destroy');
+
+    Route::post('/history/approved_rejected/{id}', [HistoryController::class, 'approvedRejected'])->name('history.approve');
+
+
+
+
 });
 
 

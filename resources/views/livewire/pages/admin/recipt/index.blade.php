@@ -141,51 +141,49 @@
                     });
                 });
 
+$(document).on('click', '.delete', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var url = "{{ route('history.destroy', ':id') }}".replace(':id', id);
 
-                $(document).on('click', '.delete', function(e) {
-                    e.preventDefault();
-                    var id = $(this).data('id');
-                    var url = "{{ route('recipt.delete', ':id') }}".replace(':id', id);
-
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: url,
-                                type: 'DELETE',
-                                data: {
-                                    _token: "{{ csrf_token() }}"
-                                },
-                                success: function(response) {
-                                    if (response.success) {
-                                        Swal.fire(
-                                            'Deleted!',
-                                            response.message,
-                                            'success'
-                                        ).then(() => {
-                                            $('#recipt-table').DataTable().ajax
-                                                .reload();
-                                        });
-                                    }
-                                },
-                                error: function(xhr) {
-                                    Swal.fire(
-                                        'Error!',
-                                        'Failed to delete recipe.',
-                                        'error'
-                                    );
-                                }
-                            });
-                        }
-                    });
-                });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire(
+                            'Deleted!',
+                            response.message,
+                            'success'
+                        ).then(() => {
+                            $('#recipt-table').DataTable().ajax.reload();
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire(
+                        'Error!',
+                        'Failed to delete recipe.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
 
 
             });

@@ -16,6 +16,7 @@
                 @auth
                     @if(Auth::user()->role == 'user')
                         <li><a href="{{route('recipt.index')}}">Dashboard</a></li>
+                        <li><a href="{{route('history.index')}}">History</a></li>
                     @endif
                     <li>
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">

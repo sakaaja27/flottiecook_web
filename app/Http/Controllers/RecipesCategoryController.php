@@ -33,7 +33,7 @@ class RecipesCategoryController extends Controller
 
     public function create()
     {
-        return view('livewire.pages.admin.category_recipes.create');
+        return view('livewire.pages.admin.category_recipes.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -59,7 +59,7 @@ class RecipesCategoryController extends Controller
     public function edit($id)
     {
         $category = RecipeCategory::findOrFail($id);
-        return view('livewire.pages.admin.category_recipes.edit', compact('id', 'category'));
+        return view('livewire.pages.admin.category_recipes.edit', compact('id', 'categories'));
     }
 
 
