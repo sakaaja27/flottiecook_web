@@ -33,7 +33,8 @@ class RecipesCategoryController extends Controller
 
     public function create()
     {
-        return view('livewire.pages.admin.category_recipes.create', compact('categories'));
+        // return view('livewire.pages.admin.category_recipes.create', compact('categories'));
+        return view('livewire.pages.admin.category_recipes.create');
     }
 
     public function store(Request $request)

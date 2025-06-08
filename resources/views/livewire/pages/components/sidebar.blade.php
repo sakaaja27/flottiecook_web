@@ -35,7 +35,7 @@
             </a>
         </li>
 
-  <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('history.index') }}" aria-expanded="false" aria-controls="icons">
                 <span class="menu-title">History</span>
                 <i class="mdi mdi-history menu-icon"></i>
