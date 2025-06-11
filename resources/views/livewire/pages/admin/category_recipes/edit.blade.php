@@ -41,7 +41,7 @@
                                     <div id="image-preview-container">
                                         @if ($category->image)
                                             <div id="current-image">
-                                                <img src="{{ asset('storage/' . $category->image) }}"
+                                                <img src="{{ asset('storage/recipes_category' . $category->image) }}"
                                                     alt="{{ $category->name }}"
                                                     class="mt-2 w-32 h-32 object-cover rounded border border-gray-300">
 

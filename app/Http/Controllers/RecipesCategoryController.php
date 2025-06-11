@@ -60,7 +60,7 @@ class RecipesCategoryController extends Controller
     public function edit($id)
     {
         $category = RecipeCategory::findOrFail($id);
-        return view('livewire.pages.admin.category_recipes.edit', compact('id', 'categories'));
+        return view('livewire.pages.admin.category_recipes.edit', compact('id', 'category'));
     }
 
 
