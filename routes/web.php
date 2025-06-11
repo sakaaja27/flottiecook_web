@@ -31,7 +31,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 
 Route::middleware(['auth', 'verified', isAdmin::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/dashboard/chart-data/{type}', [DashboardController::class, 'getChartData'])->name('getChartData');
+Route::get('/get-chart-data/{type}', [DashboardController::class, 'getChartData'])->name('getChartData');
     // users management
     Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/dashboard/users/create', [UserController::class, 'create'])->name('users.create');

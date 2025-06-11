@@ -38,7 +38,7 @@ class DashboardController extends Controller
                 ->groupBy('week');
         } elseif ($type === 'month') {
             $query->selectRaw('DATE_FORMAT(created_at, "%Y-%m-01") as date, COUNT(*) as value')
-                ->whereDate('created_at', '>=', now()->subMonths(6))
+                ->whereDate('created_at', '>=', now()->subMonths(12))
                 ->groupBy('date');
         }
 
@@ -46,6 +46,4 @@ class DashboardController extends Controller
 
         return response()->json($data);
     }
-
-
 }

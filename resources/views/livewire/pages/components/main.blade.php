@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('livewire.pages.components.head')
+
 <body>
     <div class="container-scroller">
     </div>
@@ -22,6 +23,9 @@
     </div>
     <!-- page-body-wrapper ends -->
     </div>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
