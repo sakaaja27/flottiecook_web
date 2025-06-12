@@ -48,7 +48,7 @@ class RecipesCategoryController extends Controller
         ]);
         $image = $request->file('image');
         if ($image) {
-            $path = $image->store('recipes_category', 'public');
+            $path = $image->store('recipeCategory', 'public');
             $recipeCategory->update([
                 'image' => $path,
             ]);
@@ -88,7 +88,7 @@ class RecipesCategoryController extends Controller
                 Storage::disk('public')->delete($category->image);
             }
 
-            $path = $request->file('image')->store('recipes_category', 'public');
+            $path = $request->file('image')->store('recipeCategory', 'public');
 
             $category->update([
                 'image' => $path,

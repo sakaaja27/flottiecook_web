@@ -3,10 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\RecipeCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Calculation\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -15,10 +13,12 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('public/recipes_category');
-
-        if (!Storage::exists('public/recipes_category')) {
-            Storage::makeDirectory('public/recipes_category');
+        $folderPath = 'public/recipeCategory';
+        if (!Storage::disk('public')->exists($folderPath)) {
+            Storage::disk('public')->makeDirectory($folderPath);
+            $this->command->info("Folder '{$folderPath}' berhasil dibuat.");
+        } else {
+            $this->command->info("Folder '{$folderPath}' sudah ada.");
         }
         $categories = [
             [
@@ -63,13 +63,13 @@ class CategorySeeder extends Seeder
     private function storeImage($filename)
     {
         $sourcePath = database_path('seeders/images/' . $filename);
-
-        Storage::putFileAs(
-            'public/recipes_category',
-            $sourcePath,
-            $filename
-        );
-
-        return 'recipes_category/' . $filename;
+        if (!file_exists($sourcePath)) {
+            $this->command->error("File gambar sumber tidak ditemukan: {$sourcePath}");
+            return null;
+        }
+        $disk = Storage::disk('public');
+        $destinationFolder = 'recipeCategory';
+        $disk->put($destinationFolder . '/' . $filename, file_get_contents($sourcePath));
+        return $destinationFolder . '/' . $filename;
     }
 }

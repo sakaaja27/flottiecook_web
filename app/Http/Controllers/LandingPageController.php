@@ -14,7 +14,7 @@ class LandingPageController extends Controller
     function home()
     {
         $data = Recipt::with('images')->where('status', 'accept')->get();
-        $recipescategory = RecipeCategory::all();
+        $recipescategory = RecipeCategory::orderByDesc('created_at')->take(8)->get();
         return view('livewire.pages.components-frontend.index', compact('data','recipescategory'));
     }
 
