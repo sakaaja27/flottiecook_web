@@ -4,11 +4,13 @@ node {
 
     // Build
     stage("Build"){
-        docker.image('shippingdocker/php-composer:8.4').inside('-u root') {
-            sh 'rm composer.lock'
-            sh 'composer install'
-        }
+    docker.image('composer:2').inside('-u root') {
+        sh 'php -v'
+        sh 'composer -v'
+        sh 'rm -f composer.lock'
+        sh 'composer install'
     }
+}
 
     // Testing
     stage("Testing"){
