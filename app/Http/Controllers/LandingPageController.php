@@ -15,7 +15,7 @@ class LandingPageController extends Controller
     {
         $data = Recipt::with('images')->where('status', 'accept')->get();
         $recipescategory = RecipeCategory::orderByDesc('created_at')->take(8)->get();
-        return view('livewire.pages.components-frontend.index', compact('data','recipescategory'));
+        return view('livewire.pages.components-frontend.index', compact('data', 'recipescategory'));
     }
 
     function aibot()
@@ -178,7 +178,7 @@ class LandingPageController extends Controller
             $data = $recipt;
             $data['user_id'] = Auth::id();
             foreach ($request->file('image_path') as $image) {
-                $path = $image->store('recipes/' .now()->format('Y-m-d') . '/' . $recipt['user_id'], 'public');
+                $path = $image->store('recipes/' . now()->format('Y-m-d') . '/' . $recipt['user_id'], 'public');
 
                 ImageRecipt::create([
                     'recipt_id' => $recipt->id,
@@ -192,5 +192,10 @@ class LandingPageController extends Controller
         return redirect()->route('page.recipes')->with('success', 'Recipe has been successfully saved!');
     }
 
-
+    public function detailCategory($id)
+    {
+        $categoryrecipe = RecipeCategory::where('id', $id)->firstOrFail();
+        $recipe = Recipt::with('category')->where('category_id', $id)->get();
+        return view('livewire.pages.frontend.recipes.detail_category', compact('categoryrecipe', 'recipe'));
+    }
 }

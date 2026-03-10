@@ -23,7 +23,8 @@ Route::controller(LandingPageController::class)->group(function () {
     // recipe
     Route::get('/publishrecipe', 'publishrecipe')->name('page.publishrecipe');
     // news recipes
-    Route::get('/news-recipes','getrecipespublished')->name('page.news-recipes');
+    Route::get('/news-recipes', 'getrecipespublished')->name('page.news-recipes');
+    Route::get('recipes-detail/{id}','detailcategory')->name('recipes.detail.category');
 });
 
 Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
@@ -31,7 +32,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 
 Route::middleware(['auth', 'verified', isAdmin::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/get-chart-data/{type}', [DashboardController::class, 'getChartData'])->name('getChartData');
+    Route::get('/get-chart-data/{type}', [DashboardController::class, 'getChartData'])->name('getChartData');
     // users management
     Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/dashboard/users/create', [UserController::class, 'create'])->name('users.create');
@@ -73,10 +74,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/history/{id}', [HistoryController::class, 'destroy'])->name('history.destroy');
 
     Route::post('/history/approved_rejected/{id}', [HistoryController::class, 'approvedRejected'])->name('history.approve');
-
-
-
-
 });
 
 

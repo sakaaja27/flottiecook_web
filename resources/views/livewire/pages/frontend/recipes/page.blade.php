@@ -42,14 +42,16 @@
             <h2 class="text-2xl font-bold text-center mb-8">Explore Recipes by Category</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
                 @foreach ($recipescategory as $category)
-                    <div class="text-center">
+                    <form action="{{route('recipes.detail.category', $category->id)}}">
+                        <div class="text-center">
 
-                        <div class="relative w-full pb-[100%] rounded-lg overflow-hidden bg-gray-200 mb-2">
-                            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-90"
-                                src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
+                            <div class="relative w-full pb-[100%] rounded-lg overflow-hidden bg-gray-200 mb-2">
+                                <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-90"
+                                    src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
+                            </div>
+                            <p class="mt-2 text-sm font-semibold">{{ $category->name }}</p>
                         </div>
-                        <p class="mt-2 text-sm font-semibold">{{ $category->name }}</p>
-                    </div>
+                    </form>
                 @endforeach
             </div>
         </div>
