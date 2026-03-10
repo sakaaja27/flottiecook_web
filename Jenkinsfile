@@ -4,10 +4,7 @@ node {
 
     // Build
     stage("Build"){
-    docker.image('composer:2').inside('-u root') {
-        sh 'php -v'
-        sh 'composer -v'
-        sh 'rm -f composer.lock'
+    docker.image('thecodingmachine/php:8.2-v4-cli').inside('-u root') {
         sh 'composer install'
     }
 }
