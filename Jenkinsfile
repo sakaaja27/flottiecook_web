@@ -4,8 +4,19 @@ node {
 
     // Build
     stage("Build"){
-    docker.image('thecodingmachine/php:8.2-v4-cli').inside('-u root') {
-        sh 'composer install'
+    docker.image('php:8.2-cli').inside('-u root') {
+
+        sh 'apt-get update'
+        sh 'apt-get install -y git unzip curl libpng-dev libzip-dev zip'
+
+        sh 'docker-php-ext-install gd zip'
+
+        sh 'curl -sS https://getcomposer.org/installer | php'
+        sh 'mv composer.phar /usr/local/bin/composer'
+
+        sh 'git config --global --add safe.directory /var/jenkins_home/workspace/laravel-dev'
+
+        sh 'composer install --no-interaction'
     }
 }
 
