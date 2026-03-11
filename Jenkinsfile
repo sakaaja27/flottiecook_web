@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "172.18.32.1"
+    env.PROD_HOST = "host.docker.internal"
 
     checkout scm
 
@@ -32,11 +32,11 @@ node {
             sshagent (credentials: ['ssh-prod']) {
 
                 sh 'mkdir -p ~/.ssh'
-                sh 'ssh-keyscan -H "$PROD_HOST" > ~/.ssh/known_hosts'
+                sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
 
                 sh '''
                 rsync -rav --delete ./ \
-                ubuntu@$PROD_HOST:/home/ubuntu/prod.kelasdevops.xyz/ \
+                sakab@$PROD_HOST:/home/sakab/deploy/ \
                 --exclude=.env \
                 --exclude=storage \
                 --exclude=.git
