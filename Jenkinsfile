@@ -4,7 +4,7 @@ node {
 
     // Build
     stage("Build"){
-    docker.image('php:8.2-cli').inside('-u root') {
+    docker.image('php:8.4-cli').inside('-u root') {
 
         sh 'apt-get update'
         sh 'apt-get install -y git unzip curl libpng-dev libzip-dev zip'
