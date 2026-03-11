@@ -25,6 +25,7 @@ node {
             sh 'echo "Ini adalah test"'
         }
     }
+// test
 
     stage("Deploy"){
         docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
