@@ -1,6 +1,6 @@
 node {
 
-    env.PROD_HOST = "host.docker.internal"
+    env.PROD_HOST = "192.168.65.254"
 
     checkout scm
 
