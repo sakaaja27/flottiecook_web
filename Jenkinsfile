@@ -3,7 +3,7 @@ node {
 
     // deploy env dev
     stage("Build") {
-        docker.image('php-8.4').inside('-u root') {
+        docker.image('senasindhabramasta/php-8.4:latest').inside('-u root') {
             sh 'rm composer.lock'
             sh 'composer install'
         }
