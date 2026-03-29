@@ -30,10 +30,13 @@ node {
         docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
             sshagent(credentials: ['ssh-prod']) {
                 sh '''
+                                        set -e
                     mkdir -p ~/.ssh
-                    ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
+                                        chmod 700 ~/.ssh
+                                        ssh-keyscan -T 10 -H "$PROD_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
 
                     rsync -rav --delete \
+                                            -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=10" \
                       --exclude=.env \
                       --exclude=node_modules \
                       --exclude=.git \
@@ -47,7 +50,7 @@ node {
         docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
             sshagent(credentials: ['ssh-prod']) {
                 sh '''
-                    ssh sakab@$PROD_HOST "
+                    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=10 sakab@$PROD_HOST "
                         cd /home/sakab/prod.kelasdevops.xyz && \
                         php artisan storage:link || true && \
                         php artisan config:cache || true && \
