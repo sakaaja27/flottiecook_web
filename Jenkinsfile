@@ -15,19 +15,19 @@ node {
     }
 
     stage("Deploy") {
-    docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
-        sshagent (credentials: ['ssh-prod']) {
-            sh '''
-            mkdir -p ~/.ssh
-            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
+        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+            sshagent (credentials: ['ssh-prod']) {
+                sh '''
+                mkdir -p ~/.ssh
+                ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
 
-            rsync -avz --delete ./ \
-            sakab@192.168.0.119:/home/sakab/laravel-app \
-            --exclude=.git \
-            --exclude=node_modules
-            '''
+                rsync -avz --delete ./ \
+                sakab@192.168.0.119:/home/sakab/flottie-app \
+                --exclude=.git \
+                --exclude=node_modules \
+                --exclude=vendor
+                '''
+            }
         }
-    }
-
-}
+     }
 }
