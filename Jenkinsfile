@@ -32,8 +32,7 @@ node {
             -e "ssh -o StrictHostKeyChecking=no" \
             ./ sakab@192.168.0.119:/home/sakab/flottie-app \
             --exclude=.git \
-            --exclude=node_modules \
-            --exclude=vendor
+            --exclude=node_modules
             '''
         }
     }
