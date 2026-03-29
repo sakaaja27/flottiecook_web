@@ -19,7 +19,10 @@ node {
         sshagent (credentials: ['ssh-prod']) {
             sh '''
             mkdir -p ~/.ssh
-            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
+
+            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts || true
+
+            ssh -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
 
             rsync -avz --delete ./ \
             sakab@192.168.0.119:/home/sakab/flottie-app \
