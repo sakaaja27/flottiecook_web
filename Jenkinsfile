@@ -14,19 +14,19 @@ node {
         }
     }
 
-    // stage("Deploy") {
-    //     docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
-    //         sshagent(credentials: ['ssh-prod']) {
-    //             sh 'mkdir -p ~/.ssh'
-    //             sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
-    //             sh '''
-    //                 rsync -rav --delete \
-    //                   --exclude=.env \
-    //                   --exclude=storage \
-    //                   --exclude=.git \
-    //                   ./ "sakab@$PROD_HOST:/home/sakab/prod.kelasdevops.xyz/"
-    //             '''
-    //         }
-    //     }
-    // }
+    stage("Deploy") {
+        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+            sshagent(credentials: ['ssh-prod']) {
+                sh 'mkdir -p ~/.ssh'
+                sh 'ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts'
+                sh '''
+                    rsync -rav --delete \
+                      --exclude=.env \
+                      --exclude=storage \
+                      --exclude=.git \
+                      ./ "sakab@$PROD_HOST:/home/sakab/prod.kelasdevops.xyz/"
+                '''
+            }
+        }
+    }
 }
