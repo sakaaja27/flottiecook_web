@@ -1,5 +1,5 @@
 <section id="hero" class="hero section dark-background">
-    <img src="{{asset ('assets/images/hero-bg-2.jpg')}}" alt="" class="hero-bg">
+    <img src="{{ asset('assets/images/hero-bg-2.jpg') }}" alt="" class="hero-bg">
 
     <div class="container">
         <div class="row gy-4 justify-content-between">
@@ -11,7 +11,7 @@
             </div>
 
             <div class="agbalumo-regular col-lg-6  d-flex flex-column justify-content-center" data-aos="fade-in">
-                <h1>Hii, friend cooks
+                <h1>Hii, friend cooks, I'm SenaCook
                 </h1>
                 <p>Let's share your favorite recipes with other friends, and get a variety of recipes from other friends
                     too. Let's join us and share your favorite recipes with other friends.</p>
