@@ -11,8 +11,7 @@
             </div>
 
             <div class="agbalumo-regular col-lg-6  d-flex flex-column justify-content-center" data-aos="fade-in">
-                <h1>Hii, friend cooks, I'm SenaCook
-                </h1>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover and Share Your Favorite Recipes</h1>
                 <p>Let's share your favorite recipes with other friends, and get a variety of recipes from other friends
                     too. Let's join us and share your favorite recipes with other friends.</p>
                 {{-- <p></p> --}}
