@@ -21,16 +21,14 @@ node {
             mkdir -p ~/.ssh
             chmod 700 ~/.ssh
             
-            # Ambil fingerprint host agar tidak ditanya yes/no
-            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
+            ssh-keyscan -H 172.20.10.2 >> ~/.ssh/known_hosts
 
-            # Tambahkan flag -o BatchMode=yes agar tidak minta password (biar langsung error kalau key salah)
-            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
+            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@172.20.10.2 "echo CONNECTED"
 
             # Rsync dengan opsi SSH khusus
             rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
-            ./ sakab@192.168.0.119:/home/sakab/flottie-app \
+            ./ sakab@172.20.10.2:/home/sakab/flottie-app \
             --exclude=.git \
             --exclude=node_modules
             '''
