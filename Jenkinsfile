@@ -14,20 +14,26 @@ node {
         }
     }
 
-    stage("Deploy") {
+    sstage("Deploy") {
     docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
         sshagent (credentials: ['ssh-prod']) {
             sh '''
             mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+            
+            # Ambil fingerprint host agar tidak ditanya yes/no
+            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
 
-            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts || true
+            # Tambahkan flag -o BatchMode=yes agar tidak minta password (biar langsung error kalau key salah)
+            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
 
-            ssh -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
-
-            rsync -avz --delete ./ \
-            sakab@192.168.0.119:/home/sakab/flottie-app \
+            # Rsync dengan opsi SSH khusus
+            rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ sakab@192.168.0.119:/home/sakab/flottie-app \
             --exclude=.git \
-            --exclude=node_modules
+            --exclude=node_modules \
+            --exclude=vendor
             '''
         }
     }
