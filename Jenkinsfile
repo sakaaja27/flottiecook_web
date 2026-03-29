@@ -10,6 +10,8 @@ node {
 
     stage("Build Frontend") {
         docker.image('node:20-alpine').inside('-u root') {
+            sh 'apk add --no-cache php php-cli php-phar php-mbstring composer'
+            sh 'composer install'
             sh 'npm install'
             sh 'npm run build'
         }
