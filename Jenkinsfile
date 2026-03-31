@@ -36,20 +36,19 @@ node {
 
                 ssh sakab@192.168.0.119 "
                 cd /home/sakab/flottie-app &&
-
+                sudo chown -R sakab:sakab storage bootstrap/cache &&
+                sudo chmod -R 775 storage bootstrap/cache &&
                 composer install --no-interaction --prefer-dist --no-dev &&
                 npm install &&
                 npm run build &&
-
                 php artisan config:clear &&
                 php artisan cache:clear &&
                 php artisan config:cache &&
                 php artisan route:cache &&
                 php artisan view:cache &&
-
                 sudo chown -R www-data:www-data storage bootstrap/cache &&
                 sudo chmod -R 775 storage bootstrap/cache
-                "
+            "
                 '''
             }
         }
