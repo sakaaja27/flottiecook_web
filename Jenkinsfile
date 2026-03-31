@@ -21,12 +21,12 @@ node {
                 mkdir -p ~/.ssh
                 chmod 700 ~/.ssh
 
-                ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
+                ssh-keyscan -H 10.10.5.45 >> ~/.ssh/known_hosts
 
                 rsync -avz --delete \
                 --no-perms --no-owner --no-group --omit-dir-times \
                 -e "ssh -o StrictHostKeyChecking=no" \
-                ./ sakab@192.168.0.119:/home/sakab/flottie-app \
+                ./ sakab@10.10.5.45:/home/sakab/flottie-app \
                 --exclude=.git \
                 --exclude=node_modules \
                 --exclude=.env \
@@ -34,7 +34,7 @@ node {
                 --exclude=storage \
                 --exclude=bootstrap/cache
 
-                ssh sakab@192.168.0.119 "
+                ssh sakab@10.10.5.45 "
                 cd /home/sakab/flottie-app &&
                 sudo chown -R sakab:sakab storage bootstrap/cache &&
                 sudo chmod -R 775 storage bootstrap/cache &&
