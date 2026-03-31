@@ -24,6 +24,7 @@ node {
                 ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
 
                 rsync -avz --delete \
+                --no-perms --no-owner --no-group --omit-dir-times \
                 -e "ssh -o StrictHostKeyChecking=no" \
                 ./ sakab@192.168.0.119:/home/sakab/flottie-app \
                 --exclude=.git \
@@ -46,8 +47,8 @@ node {
                 php artisan route:cache &&
                 php artisan view:cache &&
 
-                chown -R www-data:www-data storage bootstrap/cache &&
-                chmod -R 775 storage bootstrap/cache
+                sudo chown -R www-data:www-data storage bootstrap/cache &&
+                sudo chmod -R 775 storage bootstrap/cache
                 "
                 '''
             }
