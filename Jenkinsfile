@@ -21,14 +21,14 @@ node {
             mkdir -p ~/.ssh
             chmod 700 ~/.ssh
             
-            ssh-keyscan -H 10.10.184.182 >> ~/.ssh/known_hosts
+            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
 
-            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@10.10.184.182 "echo CONNECTED"
+            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
 
             # Rsync dengan opsi SSH khusus
             rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
-            ./ sakab@10.10.184.182:/home/sakab/flottie-app \
+            ./ sakab@192.168.0.119:/home/sakab/flottie-app \
             --exclude=.git \
             --exclude=node_modules
             '''
