@@ -15,24 +15,35 @@ node {
     }
 
     stage("Deploy") {
-    docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
-        sshagent (credentials: ['ssh-prod']) {
-            sh '''
-            mkdir -p ~/.ssh
-            chmod 700 ~/.ssh
-            
-            ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
+        docker.image('agung3wi/alpine-rsync:1.1').inside('-u root') {
+            sshagent (credentials: ['ssh-prod']) {
+                sh '''
+                mkdir -p ~/.ssh
+                chmod 700 ~/.ssh
 
-            ssh -o BatchMode=yes -o StrictHostKeyChecking=no sakab@192.168.0.119 "echo CONNECTED"
+                ssh-keyscan -H 192.168.0.119 >> ~/.ssh/known_hosts
 
-            # Rsync dengan opsi SSH khusus
-            rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ sakab@192.168.0.119:/home/sakab/flottie-app \
-            --exclude=.git \
-            --exclude=node_modules
-            '''
+                rsync -avz --delete \
+                -e "ssh -o StrictHostKeyChecking=no" \
+                ./ sakab@192.168.0.119:/home/sakab/flottie-app \
+                --exclude=.git \
+                --exclude=node_modules \
+                --exclude=.env \
+                --exclude=vendor \
+                --exclude=storage
+
+                ssh sakab@192.168.0.119 "
+                cd /home/sakab/flottie-app &&
+                composer install &&
+                npm install &&
+                npm run build &&
+                php artisan config:clear &&
+                php artisan cache:clear &&
+                chown -R www-data:www-data storage bootstrap/cache &&
+                chmod -R 775 storage bootstrap/cache
+                "
+                '''
+            }
         }
     }
-}
 }
