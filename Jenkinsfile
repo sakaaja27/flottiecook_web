@@ -30,15 +30,22 @@ node {
                 --exclude=node_modules \
                 --exclude=.env \
                 --exclude=vendor \
-                --exclude=storage
+                --exclude=storage \
+                --exclude=bootstrap/cache
 
                 ssh sakab@192.168.0.119 "
                 cd /home/sakab/flottie-app &&
-                composer install &&
+
+                composer install --no-interaction --prefer-dist --no-dev &&
                 npm install &&
                 npm run build &&
+
                 php artisan config:clear &&
                 php artisan cache:clear &&
+                php artisan config:cache &&
+                php artisan route:cache &&
+                php artisan view:cache &&
+
                 chown -R www-data:www-data storage bootstrap/cache &&
                 chmod -R 775 storage bootstrap/cache
                 "
